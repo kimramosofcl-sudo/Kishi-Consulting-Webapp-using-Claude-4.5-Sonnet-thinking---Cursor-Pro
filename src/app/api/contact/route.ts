@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     // Send email using Resend
     const data = await resend.emails.send({
       from: 'Kishi Consulting <kimramos.ofcl@gmail.com>', // Update this to your verified domain
-      to: ['kimramos.ofcl@gmail.com'],
+      to: ['kimramos03312002@gmail.com'],
       subject: `New Contact Form Submission from ${name}`,
       html: `
         <!DOCTYPE html>
