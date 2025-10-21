@@ -39,7 +39,6 @@ export async function POST(request: NextRequest) {
       confirmationEmail = await resend.emails.send({
         from: 'Kishi Consulting <onboarding@resend.dev>',
         to: [email],
-        reply_to: 'kimramos.ofcl@gmail.com',
         subject: 'Welcome to Kishi Consulting Newsletter!',
         html: `
           <!DOCTYPE html>
