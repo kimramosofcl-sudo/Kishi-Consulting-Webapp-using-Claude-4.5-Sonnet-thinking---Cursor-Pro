@@ -16,6 +16,8 @@ export const Footer: React.FC = () => {
 
     setIsSubmitting(true);
 
+    console.log('Sending newsletter subscription for email:', email);
+
     try {
       const response = await fetch('/api/newsletter', {
         method: 'POST',
@@ -24,6 +26,8 @@ export const Footer: React.FC = () => {
         },
         body: JSON.stringify({ email }),
       });
+
+      console.log('Newsletter API response status:', response.status);
 
       const data = await response.json();
 
