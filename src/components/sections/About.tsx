@@ -25,7 +25,7 @@ export const About: React.FC = () => {
               regulatory compliance.
             </p>
             <p className="text-textLight mb-6 leading-relaxed">
-              We understand that every business faces unique financial challenges. That's why we
+              We understand that every business faces unique financial challenges. That&apos; swhy we
               take a personalized approach, working closely with each client to develop customized
               strategies that align with their goals and drive sustainable growth.
             </p>
