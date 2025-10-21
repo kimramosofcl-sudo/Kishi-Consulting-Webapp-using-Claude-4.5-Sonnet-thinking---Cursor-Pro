@@ -25,7 +25,7 @@ const config: Config = {
         bgLight: '#f8f9fa',
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)', 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+        sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
         card: '0 4px 6px rgba(0, 0, 0, 0.1)',
