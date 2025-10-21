@@ -4,12 +4,41 @@ import React, { useState } from 'react';
 
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Newsletter subscription:', email);
-    alert('Thank you for subscribing!');
-    setEmail('');
+    
+    if (!email.trim()) {
+      alert('Please enter your email address');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Thank you for subscribing! Please check your email for confirmation.');
+        setEmail('');
+      } else {
+        alert(`Error: ${data.error || 'Failed to subscribe. Please try again.'}`);
+      }
+    } catch (error) {
+      console.error('Error subscribing to newsletter:', error);
+      alert('Failed to subscribe. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -93,9 +122,10 @@ export const Footer: React.FC = () => {
               />
               <button
                 type="submit"
-                className="px-5 py-2.5 bg-secondary text-primary rounded-lg font-semibold transition-all duration-300 hover:bg-secondary-dark"
+                disabled={isSubmitting}
+                className="px-5 py-2.5 bg-secondary text-primary rounded-lg font-semibold transition-all duration-300 hover:bg-secondary-dark disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Subscribe
+                {isSubmitting ? 'Subscribing...' : 'Subscribe'}
               </button>
             </form>
           </div>
