@@ -28,7 +28,19 @@ export const Footer: React.FC = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert('Thank you for subscribing! Please check your email for confirmation.');
+        // Log the response for debugging
+        console.log('Newsletter subscription response:', data);
+        
+        // Show appropriate message based on what emails were sent
+        if (data.confirmationSent && data.notificationSent) {
+          alert('Thank you for subscribing! Please check your email for confirmation.');
+        } else if (data.notificationSent && !data.confirmationSent) {
+          alert('Subscription received! Note: There was an issue sending the confirmation email. Please check your spam folder or contact us.');
+        } else if (data.confirmationSent && !data.notificationSent) {
+          alert('Thank you for subscribing! Please check your email for confirmation.');
+        } else {
+          alert('Subscription recorded, but there was an issue with email delivery. We will contact you shortly.');
+        }
         setEmail('');
       } else {
         alert(`Error: ${data.error || 'Failed to subscribe. Please try again.'}`);

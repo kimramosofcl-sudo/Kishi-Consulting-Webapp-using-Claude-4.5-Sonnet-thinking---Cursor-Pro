@@ -25,10 +25,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Send confirmation email to subscriber
-    const confirmationEmail = await resend.emails.send({
-      from: 'Kishi Consulting <onboarding@resend.dev>',
-      to: [email],
-      subject: 'Welcome to Kishi Consulting Newsletter!',
+    let confirmationEmail;
+    try {
+      confirmationEmail = await resend.emails.send({
+        from: 'Kishi Consulting <onboarding@resend.dev>',
+        to: [email],
+        reply_to: 'kimramos.ofcl@gmail.com',
+        subject: 'Welcome to Kishi Consulting Newsletter!',
       html: `
         <!DOCTYPE html>
         <html>
@@ -145,10 +148,17 @@ export async function POST(request: NextRequest) {
           </body>
         </html>
       `,
-    });
+      });
+      console.log('Confirmation email sent successfully:', confirmationEmail);
+    } catch (emailError) {
+      console.error('Error sending confirmation email to subscriber:', emailError);
+      // Continue to send notification even if subscriber email fails
+    }
 
     // Send notification to owner
-    const notificationEmail = await resend.emails.send({
+    let notificationEmail;
+    try {
+      notificationEmail = await resend.emails.send({
       from: 'Kishi Consulting <onboarding@resend.dev>',
       to: ['kimramos.ofcl@gmail.com'],
       subject: 'New Newsletter Subscription',
@@ -233,13 +243,26 @@ export async function POST(request: NextRequest) {
           </body>
         </html>
       `,
-    });
+      });
+      console.log('Notification email sent successfully:', notificationEmail);
+    } catch (emailError) {
+      console.error('Error sending notification email to owner:', emailError);
+    }
+
+    // Return success if at least one email was sent
+    if (!confirmationEmail && !notificationEmail) {
+      throw new Error('Failed to send both emails');
+    }
 
     return NextResponse.json(
       { 
         message: 'Newsletter subscription successful',
-        confirmationSent: confirmationEmail,
-        notificationSent: notificationEmail
+        confirmationSent: !!confirmationEmail,
+        notificationSent: !!notificationEmail,
+        details: {
+          subscriberEmail: confirmationEmail ? 'sent' : 'failed',
+          ownerEmail: notificationEmail ? 'sent' : 'failed'
+        }
       },
       { status: 200 }
     );
