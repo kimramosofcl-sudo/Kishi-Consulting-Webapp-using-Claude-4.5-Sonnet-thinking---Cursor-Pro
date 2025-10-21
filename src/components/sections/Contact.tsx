@@ -208,16 +208,33 @@ export const Contact: React.FC = () => {
               </div>
             ))}
             <div className="flex gap-4 mt-4">
-              {['in', '𝕏', 'f'].map((icon, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="w-11 h-11 bg-primary rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-secondary hover:-translate-y-1"
-                  aria-label={`Social link ${index + 1}`}
-                >
-                  {icon}
-                </a>
-              ))}
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 bg-primary rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-secondary hover:-translate-y-1"
+                aria-label="LinkedIn"
+              >
+                in
+              </a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 bg-primary rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-secondary hover:-translate-y-1"
+                aria-label="Twitter"
+              >
+                𝕏
+              </a>
+              <a
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 bg-primary rounded-full flex items-center justify-center text-white transition-all duration-300 hover:bg-secondary hover:-translate-y-1"
+                aria-label="Facebook"
+              >
+                f
+              </a>
             </div>
           </motion.div>
         </div>
