@@ -43,3 +43,11 @@ export interface NavLink {
   label: string;
 }
 
+export interface TeamPhoto {
+  id: number;
+  src: string;
+  alt: string;
+  title: string;
+  description: string;
+}
+

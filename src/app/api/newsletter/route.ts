@@ -89,9 +89,17 @@ export async function POST(request: NextRequest) {
       });
       console.log('✅ SUCCESS: Confirmation email sent to', email);
       console.log('Confirmation email response:', confirmationEmail);
-    } catch (emailError) {
+    } catch (emailError: any) {
       console.error('❌ ERROR: Failed to send confirmation email to', email);
       console.error('Error details:', emailError);
+      console.error('Error message:', emailError?.message);
+      console.error('Error response:', emailError?.response?.data);
+      
+      // Check if it's a domain verification issue
+      if (emailError?.message?.includes('domain') || emailError?.message?.includes('verify')) {
+        console.error('⚠️  This might be a domain verification issue!');
+        console.error('⚠️  Solution: Verify your domain in Resend dashboard');
+      }
     }
 
     // Send notification to owner

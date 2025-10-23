@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { StatBox } from '@/components/ui/StatBox';
+import { StatBox, TeamPhotoCarousel } from '@/components/ui';
 
 export const About: React.FC = () => {
   return (
@@ -25,7 +25,7 @@ export const About: React.FC = () => {
               regulatory compliance.
             </p>
             <p className="text-textLight mb-6 leading-relaxed">
-              We understand that every business faces unique financial challenges. That&apos; swhy we
+              We understand that every business faces unique financial challenges. That&apos;s why we
               take a personalized approach, working closely with each client to develop customized
               strategies that align with their goals and drive sustainable growth.
             </p>
@@ -45,13 +45,8 @@ export const About: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-gradient-to-br from-primary to-accent rounded-lg p-5 flex items-center justify-center min-h-[400px] text-white text-xl text-center"
           >
-            <p>
-              📊 Professional Team Photo
-              <br />
-              Expert Financial Consultants
-            </p>
+            <TeamPhotoCarousel />
           </motion.div>
         </div>
       </div>
